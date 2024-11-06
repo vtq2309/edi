@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Lookup</title>
+    <style>
+        .field {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 300px;
+        }
+    </style>
+    <script>
+        // Hàm để làm trống các trường khi nhập vào ô barcode
+        function sbKey(event, form) {
+            if (event.key === "Enter") {
+                // Kích hoạt hàm lookupConsignment() khi nhấn Enter
+                lookupConsignment();
+                return false; // Ngăn form tự động submit
+            } else {
+                // Khi có nhập liệu vào ô barcode, xóa dữ liệu ở các trường khác
+                document.getElementById('consignment_s_suburb').value = '';
+                document.getElementById('addr1').value = '';
+                document.getElementById('addr2').value = '';
+                document.getElementById('addr3').value = '';
+            }
+            return true;
+        }
+
+        // Hàm tạo dữ liệu ngẫu nhiên cho các trường
+        function lookupConsignment() {
+            setTimeout(function () {
+                // Tạo dữ liệu ngẫu nhiên không giới hạn
+                function getRandomNumber(max) {
+                    return Math.floor(Math.random() * max) + 1;
+                }
+                
+                function getRandomPhoneNumber() {
+                    return `09${getRandomNumber(99999999).toString().padStart(8, '0')}`;
+                }
+
+                const suburb = `Suburb ${getRandomNumber(100)}`;
+                const addr1 = `Number ${getRandomNumber(500)}`;
+                const streetNames = ["Street Alpha", "Street Beta", "Street Gamma", "Street Delta", "Street Epsilon"];
+                const addr2 = streetNames[getRandomNumber(streetNames.length) - 1];
+                const addr3 = getRandomPhoneNumber();
+
+                // Gán giá trị ngẫu nhiên vào các trường
+                document.getElementById('consignment_s_suburb').value = suburb;
+                document.getElementById('addr1').value = addr1;
+                document.getElementById('addr2').value = addr2;
+                document.getElementById('addr3').value = addr3;
+            }, 200);
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Barcode Lookup System</h2>
+    
+    <!-- Ô nhập liệu barcode -->
+    <label for="scanbarcode">Scan Barcode:</label>
+    <input type="text" name="scanbarcode" id="scanbarcode" onkeypress="javascript:return sbKey(event, this.form);" style="background: rgb(255, 255, 255);">
+    <br><br>
+
+    <!-- Nút Lookup -->
+    <input type="button" id="lookup_button" value="Lookup" onclick="javascript:lookupConsignment()">
+    <br><br>
+
+    <!-- Các trường thông tin khác -->
+    <label for="consignment_s_suburb">Suburb:</label>
+    <input type="text" id="consignment_s_suburb" name="consignment_s_suburb" class="field" readonly style="background: rgb(255, 255, 204);">
+    <br>
+
+    <label for="addr1">Address Line 1:</label>
+    <input type="text" class="field" size="30" id="addr1" name="addr1" readonly style="background: rgb(255, 255, 204);">
+    <br>
+
+    <label for="addr2">Address Line 2:</label>
+    <input type="text" class="field" size="30" id="addr2" name="addr2" readonly style="background: rgb(255, 255, 204);">
+    <br>
+
+    <label for="addr3">Address Line 3:</label>
+    <input type="text" class="field" size="30" id="addr3" name="addr3" readonly style="background: rgb(255, 255, 204);">
+    <br>
+
+</body>
+</html>
