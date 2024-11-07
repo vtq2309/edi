@@ -24,8 +24,9 @@
                 document.getElementById('addr1').value = '';
                 document.getElementById('addr2').value = '';
                 document.getElementById('addr3').value = '';
+                console.log('Các trường đã được làm trống');
             }
-            return true;
+            return true; // Cho phép nhập các ký tự khác
         }
 
         // Hàm tạo dữ liệu ngẫu nhiên cho các trường
@@ -51,6 +52,7 @@
                 document.getElementById('addr1').value = addr1;
                 document.getElementById('addr2').value = addr2;
                 document.getElementById('addr3').value = addr3;
+                console.log('Dữ liệu ngẫu nhiên đã được gán vào các trường');
             }, 200);
         }
     </script>
